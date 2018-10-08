@@ -8,6 +8,13 @@ npm install
 
 ## Running
 
+Set up generated files:
+
+```
+npm run update-schema
+npm run build
+```
+
 Start a local server:
 
 ```
@@ -20,10 +27,11 @@ Any changes you make to files in the `js/` directory will cause the server to
 automatically rebuild the app and refresh your browser.
 
 If at any time you make changes to `data/schema.js`, stop the server,
-regenerate `data/schema.json`, and restart the server:
+regenerate `data/schema.graphql`, and restart the server:
 
 ```
 npm run update-schema
+npm run build
 npm start
 ```
 

@@ -1,13 +1,8 @@
 {
-  "passPerPreset": true,
-  "presets": [
-    {
-      "plugins": [
-        "./build/babelRelayPlugin"
-      ]
-    },
-    "react",
-    "es2015",
-    "stage-0"
-  ]
+  "plugins": [
+    "relay",
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "presets": ["@babel/preset-react", "@babel/preset-env"]
 }

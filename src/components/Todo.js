@@ -1,24 +1,35 @@
+/**
+ * This file provided by Facebook is for non-commercial testing and evaluation
+ * purposes only.  Facebook reserves all rights not expressly granted.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 import ChangeTodoStatusMutation from '../mutations/ChangeTodoStatusMutation';
 import RemoveTodoMutation from '../mutations/RemoveTodoMutation';
 import RenameTodoMutation from '../mutations/RenameTodoMutation';
 import TodoTextInput from './TodoTextInput';
 
 import React from 'react';
-import Relay from 'react-relay';
+import {createFragmentContainer, graphql} from 'react-relay';
 import classnames from 'classnames';
 
 class Todo extends React.Component {
   state = {
     isEditing: false,
   };
-  _handleCompleteChange = (e) => {
+  _handleCompleteChange = e => {
     const complete = e.target.checked;
-    this.props.relay.commitUpdate(
-      new ChangeTodoStatusMutation({
-        complete,
-        todo: this.props.todo,
-        viewer: this.props.viewer,
-      })
+    ChangeTodoStatusMutation.commit(
+      this.props.relay.environment,
+      complete,
+      this.props.todo,
+      this.props.viewer,
     );
   };
   _handleDestroyClick = () => {
@@ -34,25 +45,29 @@ class Todo extends React.Component {
     this._setEditMode(false);
     this._removeTodo();
   };
-  _handleTextInputSave = (text) => {
+  _handleTextInputSave = text => {
     this._setEditMode(false);
-    this.props.relay.commitUpdate(
-      new RenameTodoMutation({ todo: this.props.todo, text })
+    RenameTodoMutation.commit(
+      this.props.relay.environment,
+      text,
+      this.props.todo,
     );
   };
   _removeTodo() {
-    this.props.relay.commitUpdate(
-      new RemoveTodoMutation({ todo: this.props.todo, viewer: this.props.viewer })
+    RemoveTodoMutation.commit(
+      this.props.relay.environment,
+      this.props.todo,
+      this.props.viewer,
     );
   }
-  _setEditMode = (shouldEdit) => {
-    this.setState({ isEditing: shouldEdit });
+  _setEditMode = shouldEdit => {
+    this.setState({isEditing: shouldEdit});
   };
   renderTextInput() {
     return (
       <TodoTextInput
         className="edit"
-        commitOnBlur
+        commitOnBlur={true}
         initialValue={this.props.todo.text}
         onCancel={this._handleTextInputCancel}
         onDelete={this._handleTextInputDelete}
@@ -77,10 +92,7 @@ class Todo extends React.Component {
           <label onDoubleClick={this._handleLabelDoubleClick}>
             {this.props.todo.text}
           </label>
-          <button
-            className="destroy"
-            onClick={this._handleDestroyClick}
-          />
+          <button className="destroy" onClick={this._handleDestroyClick} />
         </div>
         {this.state.isEditing && this.renderTextInput()}
       </li>
@@ -88,23 +100,19 @@ class Todo extends React.Component {
   }
 }
 
-export default Relay.createContainer(Todo, {
-  fragments: {
-    todo: () => Relay.QL`
-      fragment on Todo {
-        complete,
-        id,
-        text,
-        ${ChangeTodoStatusMutation.getFragment('todo')},
-        ${RemoveTodoMutation.getFragment('todo')},
-        ${RenameTodoMutation.getFragment('todo')},
-      }
-    `,
-    viewer: () => Relay.QL`
-      fragment on User {
-        ${ChangeTodoStatusMutation.getFragment('viewer')},
-        ${RemoveTodoMutation.getFragment('viewer')},
-      }
-    `,
-  },
+export default createFragmentContainer(Todo, {
+  todo: graphql`
+    fragment Todo_todo on Todo {
+      complete
+      id
+      text
+    }
+  `,
+  viewer: graphql`
+    fragment Todo_viewer on User {
+      id
+      totalCount
+      completedCount
+    }
+  `,
 });

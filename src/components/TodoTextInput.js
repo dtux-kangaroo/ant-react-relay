@@ -1,12 +1,27 @@
+/**
+ * This file provided by Facebook is for non-commercial testing and evaluation
+ * purposes only.  Facebook reserves all rights not expressly granted.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const { PropTypes } = React;
+const PropTypes = require('prop-types');
 
 const ENTER_KEY_CODE = 13;
 const ESC_KEY_CODE = 27;
 
 export default class TodoTextInput extends React.Component {
+  static defaultProps = {
+    commitOnBlur: false,
+  };
   static propTypes = {
     className: PropTypes.string,
     commitOnBlur: PropTypes.bool.isRequired,
@@ -15,9 +30,6 @@ export default class TodoTextInput extends React.Component {
     onDelete: PropTypes.func,
     onSave: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-  };
-  static defaultProps = {
-    commitOnBlur: false,
   };
   state = {
     isEditing: false,
@@ -34,7 +46,7 @@ export default class TodoTextInput extends React.Component {
       this.props.onCancel();
     } else if (newText !== '') {
       this.props.onSave(newText);
-      this.setState({ text: '' });
+      this.setState({text: ''});
     }
   };
   _handleBlur = () => {
@@ -42,10 +54,10 @@ export default class TodoTextInput extends React.Component {
       this._commitChanges();
     }
   };
-  _handleChange = (e) => {
-    this.setState({ text: e.target.value });
+  _handleChange = e => {
+    this.setState({text: e.target.value});
   };
-  _handleKeyDown = (e) => {
+  _handleKeyDown = e => {
     if (this.props.onCancel && e.keyCode === ESC_KEY_CODE) {
       this.props.onCancel();
     } else if (e.keyCode === ENTER_KEY_CODE) {
