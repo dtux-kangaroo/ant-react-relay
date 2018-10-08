@@ -1,17 +1,15 @@
 import {loginType} from './constant';
-import { message } from 'antd';
-import http from '../../../utils/http'
-import apiUrl from '../../../constants/apis';
+import { message as Message } from 'antd';
 
 const loginData = (data) => ({
   type: loginType.GET_LOGIN_DATA,
   payload: data
 })
-export const getLoginData = (params) => async (dispatch, getState) => {
+export const getLoginData = (params) => async (dispatch, getState , API) => {
   try {
-      let response = await http.get(apiUrl.getUserData, params);
+      let response = await API.fetchUserData(params);
       if (response.result) {
-          await dispatch(loginData(response.data));
+        dispatch(loginData(response.data));
       } else {
           //返回失败
       }

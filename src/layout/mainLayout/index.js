@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import SideBar from "./sideBar";
 import TopBar from "./topBar";
 import Foot from 'components/footer'
-import * as global from "pages/global/action";
+import * as global from "store/action";
 import { bindActionCreators } from "redux";
 import './style.scss';
 const { Header, Footer, Sider, Content } = Layout;

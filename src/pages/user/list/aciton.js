@@ -1,7 +1,5 @@
 import {listType} from './constant';
-import { message } from 'antd';
-import http from '../../../utils/http'
-import apiUrl from '../../../constants/apis';
+import { message as Message} from 'antd';
 
 const userList = (data) => ({
   type: listType.GET_DATA,
@@ -10,11 +8,11 @@ const userList = (data) => ({
     reload:true
   }
 })
-export const getUserList = (params) => async (dispatch, getState) => {
+export const getUserList = (params) => async (dispatch, getState , API) => {
   try {
-      let response = await http.get(apiUrl.getUserList, params);
+      let response = await API.fetchUserList(params);
       if (response.result) {
-          await dispatch(userList(response.data));
+        dispatch(userList(response.data));
       } else {
           //返回失败
       }

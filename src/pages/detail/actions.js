@@ -1,14 +1,13 @@
 import {detailType} from './constant';
 import { message as Message } from 'antd';
-import http from '../../utils/http';
-import apiUrl from '../../constants/apis'
-export const getDetailData = (params) => async (dispatch, getState) => {
+
+export const getDetailData = (params) => async (dispatch, getState , API) => {
   try {
       dispatch({
         type:detailType.SWITCH_LOADING_STATUS,
         payload:true
       });
-      const  response = await http.get(apiUrl.getDetailData, params);
+      const  response = await API.fetchDetailData(params);
       const {data,success,message} =response
       if (success) {
           dispatch({

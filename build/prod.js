@@ -133,7 +133,8 @@ module.exports = {
       pages: path.resolve(__dirname, '../src/pages/'),
       utils: path.resolve(__dirname, '../src/utils/'),
       constants: path.resolve(__dirname, '../src/constants/'),
-      layout: path.resolve(__dirname, '../src/layout/')
+      layout: path.resolve(__dirname, '../src/layout/'),
+      store:path.resolve(__dirname,'../src/store')
     }
   },
   externals:{

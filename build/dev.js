@@ -79,6 +79,7 @@ module.exports = {
       pages: path.resolve(__dirname, '../src/pages/'),
       utils: path.resolve(__dirname, '../src/utils/'),
       constants: path.resolve(__dirname, '../src/constants/'),
+      store:path.resolve(__dirname,'../src/store'),
       layout: path.resolve(__dirname, '../src/layout/')
     }
   },
@@ -93,8 +94,8 @@ module.exports = {
     hot: true,
     inline:true,
     proxy: [{
-      path: '/log/api/v2/**',
-      target: 'http://log.dev.dtstack.net:81',
+      path: '/graphql',
+      target: 'http://localhost:4000',
       changeOrigin: true
     }]
   },

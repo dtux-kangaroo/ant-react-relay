@@ -1,18 +1,15 @@
 
 import {applicationConfigType} from './constant';
-import { message } from 'antd';
-import http from '../../utils/http'
-import apiUrl from '../../constants/apis';
-import { browserHistory } from 'react-router';
+import { message as Message} from 'antd';
 const applicationConfigData = (data) => ({
   type: applicationConfigType.GET_APPLICATIONCONFIG_DATA,
   payload: data
 })
-export const getApplicationConfigData = (params) => async (dispatch, getState) => {
+export const getApplicationConfigData = (params) => async (dispatch, getState , API) => {
   try {
-      let response = await http.get(apiUrl.getUserData, params);
+      let response = await API.fetchUserData(params);
       if (response.success) {
-          await dispatch(applicationConfigData(response.data));
+        dispatch(applicationConfigData(response.data));
       } else {
           //返回失败
       }

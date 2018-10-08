@@ -1,17 +1,15 @@
 import {registerType} from './constant';
-import { message } from 'antd';
-import http from '../../../utils/http'
-import apiUrl from '../../../constants/apis';
+import { message as Message } from 'antd';
 
 const registerData = (data) => ({
   type: registerType.GET_REGISTER_DATA,
   payload: data
 })
-export const submitRegisterData = (params) => async (dispatch, getState) => {
+export const submitRegisterData = (params) => async (dispatch, getState, API) => {
   try {
-      let response = await http.get(apiUrl.getHomeData, params);
+      let response = API.fetchHomeData(params);
       if (response.result) {
-          await dispatch(registerData(response.data));
+            dispatch(registerData(response.data));
       } else {
           //返回失败
       }

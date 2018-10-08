@@ -10,6 +10,7 @@
     ["import",
       { "libraryName": "antd", "style": true }
     ],
+    "relay",
     "transform-runtime",
     "transform-decorators-legacy"
   ]
