@@ -1,100 +1,40 @@
-**本项目wepack4，测试通过，快来体验吧！**
-#### 使用技术
-```text
- 热更新、ES6/7、LESS、Router4、redux、webpack4、async／await、前端node服务器，按需加载...
-```
-#### 客户端渲染
-```
-本项目是客户端渲染版本
-对于 HTTP/1.1 客户端，由 webpack 打包你的应用程序会尤其强大，因为在浏览器发起一个新请求时，
-它能够减少应用程序必须等待的时间。对于 HTTP/2，你还可以使用代码拆分(Code Splitting)以及通过 
-webpack 打包来实现最佳优化。
-```
+# Relay TodoMVC
 
-==========================
-
-#### 安装教程
-
-1、 安装依赖包。
-```
-npm install 或者cnpm install 或者yarn(推荐)
+## Installation
 
 ```
-
-2、运行脚手架。
- ```
- npm start
-
- ```
-
-3、将会开启8080端口.
-```
-http://127.0.0.1:8080
-
+npm install
 ```
 
-4、打包发布: 默认打包后的文件统一放到dist文件夹下  
+## Running
+
+Start a local server:
 
 ```
-npm run build
-
-```
-5、code编写规则及行为规范请参考
-
-```
-https://github.com/cindyrise/doc.git
-
+npm start
 ```
 
-==============================================
-### 使用技巧 (暂时不可用)
+## Developing
 
-1.新建组件
-```
- npm run newCom -- comName [-- d]（组件目录）
+Any changes you make to files in the `js/` directory will cause the server to
+automatically rebuild the app and refresh your browser.
 
- comName地址：./src/webapp/components
-```
-2.新建页面
-```
- 运行 npm run newPage -- pageName
-
- pageName地址：./src/webapp/pages/pageName
-
- 自动生成 actions,redux,routers,contants,api,type 
-```
-3.组织规范
-```
-https://github.com/cindyrise/doc.git
+If at any time you make changes to `data/schema.js`, stop the server,
+regenerate `data/schema.json`, and restart the server:
 
 ```
-
-===========================================
-
-
-#### 项目结构
-
-```text
-├── build //webpack各种环境打包配置
-├── mock //测试数据，模拟api接口
-├── dist //打包后文件存放文件夹
-├── src //项目的主要目录
-│     │     └── webapp //webapp目录
-│     │     │     ├── assets //此应用对应的静态资源
-│     │     │     │     ├── img //全局静态图片目录
-│     │     │     │     ├── fonts //全局字体目录
-│     │     │     │     ├── lib //全局js类库地址
-│     │     │     ├── pages //页面
-│     │     │     ├── tpls //模板页面
-│     │     │     ├── constants //全局常量
-│     │     │     ├── components //全局公用组件
-│     │     │     ├── utils //提供一些小工具
-│     │     │     ├── app.js //应用的入口
-│     │     │     └── router //路由
-│     │     └── script //脚本目录
-├── webapp.ejs //wepack打包模板文件
-├── .babelrc //babel相关配置
-└── package.json //node相关环境的配置文件
-
-
+npm run update-schema
+npm start
 ```
+
+## License
+
+    This file provided by Facebook is for non-commercial testing and evaluation
+    purposes only.  Facebook reserves all rights not expressly granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
