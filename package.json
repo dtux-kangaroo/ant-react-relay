@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --progress --colors --config ./build/dev.js",
-    "start": "babel-node ./server.js",
-    "build": "rimraf dist && webpack --config ./build/dev.js",
+    "server": "babel-node ./server.js",
+    "build": "rimraf dist && webpack --config ./build/prod.js",
     "relay": "relay-compiler --src ./src/ --schema ./data/schema.graphql --extensions js jsx",
     "update-schema": "babel-node ./scripts/updateSchema.js",
     "prettier": "find . \\( -name node_modules -o -name __generated__ \\) -prune -or \\( -name '*.js' -o -name '*.css' -o -name '*.json' -o -name '*.md' \\) -print | xargs prettier --write"
