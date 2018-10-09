@@ -1,13 +1,19 @@
 const path = require('path')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports={
   mode: 'development',
   entry: {
-    app: path.resolve(__dirname,'../src/app.js')
+    app: path.resolve(__dirname,'../src/main.js')
   },
   output: {
     path:path.resolve(__dirname,'../dist'),
     filename: 'js/[name].[hash].js',
+  },
+  resolve:{
+    alias:{
+      mutations:path.resolve(__dirname,'../src/mutations')
+    }
   },
   module: {
     rules: [
@@ -50,6 +56,9 @@ module.exports={
       assets: {
         config_js: '/static/config/conf.dev.js'
       }
-    })
+    }),
+    new CopyWebpackPlugin([ 
+      { from: path.resolve(__dirname,'../static'),to:"static"},
+    ])
   ]
 }

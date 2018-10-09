@@ -1,13 +1,20 @@
 const path = require('path')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports={
-  mode: 'development',
+  mode: 'production',
   entry: {
-    app: path.resolve(__dirname,'../src/app.js')
+    app: path.resolve(__dirname,'../src/main.js')
   },
   output: {
     path:path.resolve(__dirname,'../dist'),
     filename: 'js/[name].[hash].js',
+  },
+  resolve:{
+    alias:{
+      mutations:path.resolve(__dirname,'../src/mutations')
+    }
   },
   module: {
     rules: [
@@ -18,6 +25,14 @@ module.exports={
           loader: 'babel-loader',
         },
       },
+      {
+        test:/\.scss$/,
+        use:[
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
+      }
     ],
   },
   plugins:[
@@ -30,8 +45,11 @@ module.exports={
         title:'react-relay'
       },
       assets: {
-        config_js: '/static/config/conf.dev.js'
+        config_js: '/static/config/conf.prod.js'
       }
-    })
+    }),
+    new CopyWebpackPlugin([ 
+      { from: path.resolve(__dirname,'../static'),to:"static"},
+    ])
   ]
 }
