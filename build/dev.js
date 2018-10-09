@@ -37,7 +37,7 @@ module.exports={
   devServer:{
     port:3000,
     contentBase: path.resolve(__dirname,'../dist/'),
-    publicPath: '/dist/',
+    publicPath: '/',
     stats: {colors: true},
     proxy: [{
       path: '/graphql',
